@@ -85,6 +85,7 @@
     <Compile Include="Assets\Scripts\Procedural\AllTheUniqueVertQuads.cs" />
     <Compile Include="Assets\Scripts\Procedural\AllTheUniqueVertTetrahedrons.cs" />
     <Compile Include="Assets\Scripts\Procedural\MeshNormalDisplayer.cs" />
+    <Compile Include="Assets\Scripts\Procedural\MeshTangentDisplayer.cs" />
     <Compile Include="Assets\Scripts\Procedural\ProceduralMeshGenerator.cs" />
     <Compile Include="Assets\Scripts\WaveFunc.cs" />
   </ItemGroup>

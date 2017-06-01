@@ -9,6 +9,19 @@ public class AllThePolygons : AbstractMeshGenerator
     private int numSides = 3;
     [SerializeField]
     private float radius;
+    [SerializeField]
+    private float xTiling = 1f;
+    [SerializeField]
+    private float yTiling = 1f;
+    [SerializeField]
+    private float xScroll = 1f;
+    [SerializeField]
+    private float yScroll = 1f;
+    [SerializeField]
+    private float angle = 0;
+    [SerializeField]
+   
+
 
     protected override void SetMeshNum()
     {
@@ -18,12 +31,24 @@ public class AllThePolygons : AbstractMeshGenerator
 
     protected override void SetNormals()
     {
-        
+        Vector3 normal = new Vector3(0, 0, -1);
+        for (int i = 0; i < numVertices; i++)
+        {
+            normals.Add(normal);
+        }
     }
 
     protected override void SetTangents()
     {
-      
+        Vector3 tangent3 = new Vector3(1, 0, 0); // because this is how the UVs are oriented at angle = 0
+        //Rotate clockwise as alpha increases
+        Vector3 rotatedTangent = Quaternion.AngleAxis(angle, -Vector3.forward) * tangent3;
+        Vector4 tangent = rotatedTangent;
+        tangent.w = -1; // Left hand rule
+        for (int i = 0; i < numVertices; i++)
+        {
+            tangents.Add(tangent);
+        }
     }
 
     protected override void SetTriangles()
@@ -38,7 +63,14 @@ public class AllThePolygons : AbstractMeshGenerator
 
     protected override void SetUVs()
     {
-        
+        for (int i = 0; i < numVertices; i++)
+        {
+            float uvX = xTiling * vertices[i].x + xScroll;
+            float uvY = yTiling * vertices[i].y + yScroll;
+            Vector2 uv = new Vector3(uvX, uvY);
+                        
+            uvs.Add(Quaternion.AngleAxis(angle, Vector3.forward) * uv);
+        }
     }
 
     protected override void SetVertexColors()
