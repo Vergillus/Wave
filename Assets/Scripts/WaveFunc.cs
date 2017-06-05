@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class WaveFunc : MonoBehaviour {
 
-    [Range(1.0f,20.0f)]
-    public float Wavelenght = 2.0f;
+    [SerializeField, Range(1.0f,20.0f)]
+    private float Wavelenght = 2.0f;
 
-    [Range(1.0f, 10.0f)]
-    public float Speed = 5.0f;
+    [SerializeField ,Range(1.0f, 10.0f)]
+    private float Speed = 5.0f;
 
     Renderer Rend;
     Mesh Mesh;
@@ -80,12 +80,12 @@ public class WaveFunc : MonoBehaviour {
             
             waveY += waveY + waveX + waveX;
             Vertices[Index].y = waveY;
-            VertexColors[Index] = new Color(waveY, waveY, waveY) + Rend.material.color;            
+            //VertexColors[Index] = new Color(waveY, waveY, waveY) + Rend.material.color;            
             Index++;
         }
 
         Mesh.vertices = Vertices;
-        Mesh.colors = VertexColors;
+        //Mesh.colors = VertexColors;
         Mesh.RecalculateNormals();
         Mesh.RecalculateBounds();
         Mesh.MarkDynamic();

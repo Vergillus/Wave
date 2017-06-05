@@ -16,17 +16,20 @@ public abstract class AbstractMeshGenerator : MonoBehaviour
 
     [SerializeField]
     protected Material material;
+    [SerializeField]
+    protected bool showVertices = false;
+    [SerializeField]
+    protected bool updateMesh = false;
 
     protected int numVertices;
     protected int numTriangles;
 
     private Mesh mesh;
     private MeshFilter meshFilter;
-    private MeshRenderer meshRenderer;
+    protected MeshRenderer meshRenderer;
     private MeshCollider meshCollider;
 
-    // Update is called once per frame
-    void Update()
+    private void Awake()
     {
         meshFilter = GetComponent<MeshFilter>();
         meshRenderer = GetComponent<MeshRenderer>();
@@ -38,6 +41,26 @@ public abstract class AbstractMeshGenerator : MonoBehaviour
         SetMeshNum();
 
         CreateMesh();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (updateMesh)
+        {
+            meshFilter = GetComponent<MeshFilter>();
+            meshRenderer = GetComponent<MeshRenderer>();
+            meshCollider = GetComponent<MeshCollider>();
+
+            meshRenderer.material = material;
+
+            InitMesh();
+            SetMeshNum();
+
+            CreateMesh();
+        }
+
+
     }
 
     private bool ValidateMesh()
@@ -109,11 +132,16 @@ public abstract class AbstractMeshGenerator : MonoBehaviour
 
     private void OnDrawGizmosSelected()
     {
-        for (int i = 0; i < vertices.Count; i++)
+        if (showVertices)
         {
-            Gizmos.color = Color.red;
-            Gizmos.DrawSphere(transform.TransformPoint(vertices[i]), .1f);
+            for (int i = 0; i < vertices.Count; i++)
+            {
+                Gizmos.color = Color.red;
+                Gizmos.DrawSphere(transform.TransformPoint(vertices[i]), .1f);
+            }
         }
+
+       
     }
 
 
