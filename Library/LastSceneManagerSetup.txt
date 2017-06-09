@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Scenes/AllTheTetrahedrons.unity
+- path: Assets/Scenes/TropicIsland.unity
   isLoaded: 1
   isActive: 1
